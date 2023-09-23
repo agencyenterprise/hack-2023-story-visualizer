@@ -176,18 +176,20 @@
                     });
                     const data = await response.json();
                     document.querySelector(".lds-facebook").style = "display:none";
-                    if (data.image){
+                    if (data.image) {
                         const p_text = document.createElement('p');
                         const img = document.createElement('img');
                         img.src = data.image;
                         p_text.innerText = text
                         document.getElementById('images').appendChild(p_text);
                         document.getElementById('images').appendChild(img);
-                        
+
                         // window.scrollTo(0,document.body.scrollHeight);
-                        img.scrollIntoView({ behavior: 'smooth', block: 'end' }); // Scroll to the last image added
+                        img.onload = function () {
+                            img.scrollIntoView({ behavior: 'smooth', block: 'end' }); // Scroll to the last image added
+                        }
                     }
-                        
+
                 }
             </script>
         </div>

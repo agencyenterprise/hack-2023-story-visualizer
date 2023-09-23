@@ -1,6 +1,8 @@
 import openai
+
 from dotenv import load_dotenv
 import os
+import requests
 
 load_dotenv()
 
@@ -68,6 +70,53 @@ def generate_image(text):
     except Exception as e:
         print("An error occurred while generating the image: ", e)
         response = None
+
+def generate_image2(text):
+    #Leonardo.ai
+    try:
+        if text:
+            print("--------> here")
+            LEONARDOAI_API_KEY = os.getenv("LEONARDOAI_API_KEY")
+            print(text)
+            if text:
+                # response = openai.Image.create(
+                #     prompt = text,
+                #     n=1,
+                #     size="256x256"
+                # )
+                url = "https://cloud.leonardo.ai/api/rest/v1/generations"
+                payload = {
+                    "height": 256,
+                    "modelId": "6bef9f1b-29cb-40c7-b9df-32b51c1f67d3",
+                    "prompt": text,
+                    "width": 256
+                }
+                headers = {
+                    "accept": "application/json",
+                    "content-type": "application/json",
+                    "authorization": "Bearer " + LEONARDOAI_API_KEY
+                }
+                response = requests.post(url, json=payload, headers=headers)
+                print(response.text)
+
+
+                url2 = "https://cloud.leonardo.ai/api/rest/v1/generations/" + response
+
+                headers2 = {
+                    "accept": "application/json",
+                    "authorization": "Bearer " + LEONARDOAI_API_KEY
+                }
+
+                response2 = requests.get(url, headers=headers)
+
+                print(response.text)
+
+                image_url = response2['data'][0]['url']
+                return image_url
+
+    except Exception as e:
+        print("An error occurred while generating the image: ", e)
+        response = None        
 
 
 
