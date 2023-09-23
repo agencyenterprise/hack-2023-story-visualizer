@@ -1,1 +1,1 @@
-web: gunicorn -b 0.0.0.0:80 --port=${PORT:-5000} main:app
+web: gunicorn -b 0.0.0.0:${PORT:-5000} main:app
