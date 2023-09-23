@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Image Generator</title>
+    <style>
+        /*
+            Edy Segura
+            https://loading.io/css/
+        */
+        .lds-facebook {
+            display: inline-block;
+            position: relative;
+            width: 80px;
+            height: 80px;
+        }
+
+        .lds-facebook div {
+            display: inline-block;
+            position: absolute;
+            left: 8px;
+            width: 16px;
+            background: #000;
+            animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+        }
+
+        .lds-facebook div:nth-child(1) {
+            left: 8px;
+            animation-delay: -0.24s;
+        }
+
+        .lds-facebook div:nth-child(2) {
+            left: 32px;
+            animation-delay: -0.12s;
+        }
+
+        .lds-facebook div:nth-child(3) {
+            left: 56px;
+            animation-delay: 0;
+        }
+
+        @keyframes lds-facebook {
+            0% {
+                top: 8px;
+                height: 64px;
+            }
+
+            50%,
+            100% {
+                top: 24px;
+                height: 32px;
+            }
+        }
+
+        /* CSS for split page layout */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .fixed-area {
+            background-color: lightgray;
+            padding: 10px;
+        }
+
+        .scrollable-area {
+            flex-grow: 1;
+            overflow-y: scroll;
+            background-color: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>History viewer</h1>
+
+    <div class="container">
+        <div class="fixed-area">
+            <!-- Fixed area where scrolling is not possible -->
+            <p id="output"></p>
+
+            <select id="language">
+                <option value="en-US">English (United States)</option>
+                <option value="en-GB">English (United Kingdom)</option>
+                <option value="pt-BR">Português (Brasil)</option>
+                <option value="pt-PT">Português (Portugal)</option>
+                <option value="es-ES">Español (España)</option>
+                <option value="es-MX">Español (México)</option>
+                <option value="fr-FR">Français (France)</option>
+                <option value="de-DE">Deutsch (Deutschland)</option>
+                <option value="it-IT">Italiano (Italia)</option>
+                <option value="ru-RU">Русский (Россия)</option>
+                <option value="zh-CN">简体中文 (中国)</option>
+                <option value="zh-TW">繁體中文 (台灣)</option>
+                <option value="ja-JP">日本語 (日本)</option>
+                <option value="ko-KR">한국어 (대한민국)</option>
+            </select>
+
+            <button id="toggle">Click and say something!</button>
+
+            <script>
+                'use strict'
+
+                const toggleButton = document.getElementById('toggle')
+                const output = document.getElementById('output')
+                const languageSelect = document.getElementById('language')
+
+                let recognition = null;
+
+                const toggleListening = () => {
+                    if (recognition) {
+                        // If recognition is active, stop it
+                        recognition.stop()
+                        recognition = null
+                        output.textContent = ""
+                        toggleButton.textContent = "Click and say something!"
+                    } else {
+                        // If recognition is not active, start it
+                        recognition = new webkitSpeechRecognition()
+                        recognition.continuous = true
+                        recognition.interimResults = true
+                        recognition.lang = languageSelect.value // Use the selected language
+                        // recognition.lang = 'pt-BR'
+                        recognition.start()
+                        recognition.addEventListener('result', convertToText)
+                        toggleButton.textContent = "Listening... click to stop"
+                    }
+                }
+
+                const convertToText = event => {
+                    for (let i = event.resultIndex; i < event.results.length; i++) {
+                        if (event.results[i].isFinal) {
+                            const content = event.results[i][0].transcript.trim()
+                            output.textContent = content
+                            fetchAndDisplayImage(content); // Call the function with the final text
+                        }
+                    }
+                }
+
+                // Add event listener to languageSelect
+                languageSelect.addEventListener('change', () => {
+                    if (recognition) {
+                        toggleListening() // Stop current recognition
+                        toggleListening() // Start new recognition with new language
+                    }
+                })
+
+                toggleButton.addEventListener('click', toggleListening)
+
+
+            </script>
+        </div>
+
+        <div class="scrollable-area">
+            <!-- Scrollable area where scrolling is allowed -->
+            <div id="images"></div>
+            <div class="lds-facebook">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+
+            <script>
+                async function fetchAndDisplayImage(text) {
+                    const response = await fetch('/generate_image', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ text: text }),
+                    });
+                    const data = await response.json();
+                    document.querySelector(".lds-facebook").style = "display:none";
+                    const img = document.createElement('img');
+                    img.src = data.image;
+                    document.getElementById('images').appendChild(img);
+                    //window.scrollTo(0,document.body.scrollHeight);                    
+                    img.scrollIntoView({ behavior: 'smooth' }); // Scroll to the last image added
+                }
+            </script>
+        </div>
+    </div>
+</body>
+
+</html>
