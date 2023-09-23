@@ -1,8 +1,11 @@
 import openai
 from dotenv import load_dotenv
 import os
+
 load_dotenv()
+
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 def get_promtp(text: str):
     """Returns a prompt for the user to complete."""
     return f"""You are tool designer to transform expressions, utterances and prepositions into a sequence of
@@ -52,7 +55,7 @@ def generate_image(text):
         openai.api_key = OPENAI_API_KEY
         if text:
             print(text)
-            text = text_completion(get_promtp(text))
+            #text = text_completion(get_promtp(text))
             if text:
                 response = openai.Image.create(
                     prompt = text,

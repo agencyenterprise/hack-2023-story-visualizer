@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Image Generator</title>
+    <title>Story visualizer</title>
     <style>
         /*
             Edy Segura
@@ -79,7 +79,7 @@
 </head>
 
 <body>
-    <h1>History viewer</h1>
+    <h1>Story visualizer</h1>
 
     <div class="container">
         <div class="fixed-area">
@@ -104,7 +104,7 @@
             </select>
 
             <button id="toggle">Click and say something!</button>
-
+            <script src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
             <script>
                 'use strict'
 
@@ -153,8 +153,6 @@
                 })
 
                 toggleButton.addEventListener('click', toggleListening)
-
-
             </script>
         </div>
 
@@ -186,8 +184,8 @@
                         document.getElementById('images').appendChild(p_text);
                         document.getElementById('images').appendChild(img);
                         
-                        window.scrollTo(0,document.body.scrollHeight);                    
-                        //img.scrollIntoView({ behavior: 'smooth' }); // Scroll to the last image added
+                        // window.scrollTo(0,document.body.scrollHeight);
+                        img.scrollIntoView({ behavior: 'smooth', block: 'end' }); // Scroll to the last image added
                     }
                         
                 }
