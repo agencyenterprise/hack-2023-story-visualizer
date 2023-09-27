@@ -149,7 +149,9 @@
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
           </div>
+
           <div id="images"></div>
+
           <div class="lds-facebook">
             <div></div>
             <div></div>
@@ -159,80 +161,7 @@
       </div>
     </div>
 
-    <script>
-      "use strict";
-
-      const toggleButton = document.getElementById("toggle");
-      const output = document.getElementById("output");
-      const languageSelect = document.getElementById("language");
-
-      let recognition = null;
-
-      const toggleListening = () => {
-        if (recognition) {
-          // If recognition is active, stop it
-          recognition.stop();
-          recognition = null;
-          output.textContent = "";
-          toggleButton.classList.remove("animate-bounce");
-        } else {
-          // If recognition is not active, start it
-          recognition = new webkitSpeechRecognition();
-          recognition.continuous = true;
-          recognition.interimResults = true;
-          recognition.lang = languageSelect.value; // Use the selected language
-          // recognition.lang = 'pt-BR'
-          recognition.start();
-          recognition.addEventListener("result", convertToText);
-          toggleButton.classList.add("animate-bounce");
-        }
-      };
-
-      const convertToText = (event) => {
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          if (event.results[i].isFinal) {
-            const content = event.results[i][0].transcript.trim();
-            output.textContent = content;
-            fetchAndDisplayImage(content); // Call the function with the final text
-          }
-        }
-      };
-
-      // Add event listener to languageSelect
-      languageSelect.addEventListener("change", () => {
-        if (recognition) {
-          toggleListening(); // Stop current recognition
-          toggleListening(); // Start new recognition with new language
-        }
-      });
-
-      toggleButton.addEventListener("click", toggleListening);
-    </script>
-    <script>
-      async function fetchAndDisplayImage(text) {
-        const response = await fetch("/generate_image", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ text: text }),
-        });
-        const data = await response.json();
-        document.querySelector(".lds-facebook").style = "display:none";
-        if (data.image) {
-          const p_text = document.createElement("p");
-          const img = document.createElement("img");
-          img.src = data.image;
-          p_text.innerText = text;
-          document.getElementById("images").appendChild(p_text);
-          document.getElementById("images").appendChild(img);
-
-          // window.scrollTo(0,document.body.scrollHeight);
-          img.onload = function () {
-            img.scrollIntoView({ behavior: "smooth", block: "end" }); // Scroll to the last image added
-          };
-        }
-      }
-    </script>
+    <script src="/static/scripts/index.js"></script>
+    <script src="/static/scripts/requests.js"></script>
   </body>
 </html>

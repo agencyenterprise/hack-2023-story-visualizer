@@ -1,15 +1,15 @@
 from flask import Flask, send_file, request, jsonify
 from image_generator import generate_image
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', static_folder='static')
 
 @app.route("/")
 def index():
-    return send_file("index.html")
+    return app.send_static_file("index.html")
 
 @app.route('/logo.svg')
 def logo():
-    return send_file("logo.svg")
+    return app.send_static_file("logo.svg")
 
 @app.route('/generate_image', methods=['POST'])
 def generate_image_endpoint():
