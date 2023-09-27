@@ -1,6 +1,7 @@
 "use strict";
 
 const toggleButton = document.getElementById("toggle");
+const toogleText = document.getElementById("toggle-text");
 const languageSelect = document.getElementById("language");
 const progressBar = document.getElementById("progress");
 
@@ -84,6 +85,7 @@ const stopRecognition = () => {
     recognition.stop();
     recognition = null;
     toggleButton.classList.remove("animate-bounce");
+    toogleText.textContent = "Try to use short sentences (OFF)";
   }
 };
 
@@ -117,6 +119,7 @@ const startRecognition = () => {
 
     // Animation
     toggleButton.classList.add("animate-bounce");
+    toogleText.textContent = "Try to use short sentences (ON)";
   }
 };
 
