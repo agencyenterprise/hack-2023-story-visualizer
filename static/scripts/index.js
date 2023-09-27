@@ -11,7 +11,6 @@ const toggleListening = () => {
     // If recognition is active, stop it
     recognition.stop();
     recognition = null;
-    output.textContent = "";
     toggleButton.classList.remove("animate-bounce");
   } else {
     // If recognition is not active, start it
@@ -32,9 +31,7 @@ const convertToText = async (event) => {
     if (event.results[i].isFinal) {
       skeleton.style.display = "block";
       const content = event.results[i][0].transcript.trim();
-      output.textContent = content;
       await fetchAndDisplayImage(content); // Call the function with the final text
-      skeleton.style.display = "hidden";
     }
   }
 };

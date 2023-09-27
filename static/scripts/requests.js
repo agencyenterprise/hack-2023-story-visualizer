@@ -21,7 +21,7 @@ async function fetchAndDisplayImage(text) {
     if (data.image) {
       // Create main div
       const mainDiv = document.createElement('div');
-      mainDiv.className = 'border border-gray-300 rounded-lg p-4 bg-gray-200 flex flex-col items-center gap-2';
+      mainDiv.className = 'border border-gray-300 rounded-lg p-4 bg-gray-200 flex flex-col items-center gap-2 w-full sm:w-[45%]';
 
       // Create container div and img
       const containerDiv = document.createElement('div');
@@ -50,9 +50,9 @@ async function fetchAndDisplayImage(text) {
       mainDiv.appendChild(pTag);
 
       // Add mainDiv to the images container
+      skeleton.style.display = "none";
       const imagesContainer = document.getElementById("images")
       imagesContainer.appendChild(mainDiv);
-      reverseChildren(imagesContainer);
 
       // window.scrollTo(0,document.body.scrollHeight);
       img.onload = function () {
