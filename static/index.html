@@ -5,75 +5,74 @@
     <script src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
     <title>Story visualizer</title>
   </head>
-  <body class="flex flex-col h-screen">
-    <header
-      class="sticky top-0 w-full bg-[#8F1E42] flex flex-row justify-between z-50"
-    >
-      <div>
-        <img
-          src="logo.svg"
-          alt="Product Logo"
-          class="w-[130px] md:w-[180px] h-auto"
-        />
-      </div>
-      <div class="flex justify-center items-center">
-        <button
-          type="button"
-          id="toggle"
-          class="bg-white p-8 rounded-full w-30 h-30"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-5 h-5"
+  <body class="flex flex-col h-screen overflow-hidden">
+    <header class="bg-[#8F1E42] text-center border-b border-grey">
+      <div class="flex flex-row justify-between w-full max-w-[1400px] mx-auto">
+        <div>
+          <img
+            src="logo.svg"
+            alt="Product Logo"
+            class="w-[130px] md:w-[180px] h-auto"
+          />
+        </div>
+        <div class="flex justify-center items-center">
+          <button
+            type="button"
+            id="toggle"
+            class="bg-white p-8 rounded-full w-30 h-30"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
-            />
-          </svg>
-        </button>
-      </div>
-      <div class="flex flex-col justify-center p-5">
-        <label for="language" class="mb-2 text-xs font text-white"
-          >Select a language</label
-        >
-        <select
-          id="language"
-          class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
-        >
-          <option value="en-US">English (United States)</option>
-          <option value="en-GB">English (United Kingdom)</option>
-          <option value="pt-BR">Português (Brasil)</option>
-          <option value="pt-PT">Português (Portugal)</option>
-          <option value="es-ES">Español (España)</option>
-          <option value="es-MX">Español (México)</option>
-          <option value="fr-FR">Français (France)</option>
-          <option value="de-DE">Deutsch (Deutschland)</option>
-          <option value="it-IT">Italiano (Italia)</option>
-          <option value="ru-RU">Русский (Россия)</option>
-          <option value="zh-CN">简体中文 (中国)</option>
-          <option value="zh-TW">繁體中文 (台灣)</option>
-          <option value="ja-JP">日本語 (日本)</option>
-          <option value="ko-KR">한국어 (대한민국)</option>
-        </select>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-5 h-5"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="flex flex-col justify-center p-5">
+          <label for="language" class="mb-2 text-xs font text-white"
+            >Select a language</label
+          >
+          <select
+            id="language"
+            class="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
+          >
+            <option value="en-US">English (United States)</option>
+            <option value="en-GB">English (United Kingdom)</option>
+            <option value="pt-BR">Português (Brasil)</option>
+            <option value="pt-PT">Português (Portugal)</option>
+            <option value="es-ES">Español (España)</option>
+            <option value="es-MX">Español (México)</option>
+            <option value="fr-FR">Français (France)</option>
+            <option value="de-DE">Deutsch (Deutschland)</option>
+            <option value="it-IT">Italiano (Italia)</option>
+            <option value="ru-RU">Русский (Россия)</option>
+            <option value="zh-CN">简体中文 (中国)</option>
+            <option value="zh-TW">繁體中文 (台灣)</option>
+            <option value="ja-JP">日本語 (日本)</option>
+            <option value="ko-KR">한국어 (대한민국)</option>
+          </select>
+        </div>
       </div>
     </header>
-    <main class="grow">
-      <div class="w-full p-5">
+    <main class="flex-1 overflow-y-scroll">
+      <div class="w-full col-span-3 p-5">
         <div
           id="images"
           class="flex flex-row flex-wrap justify-center gap-4 xl:gap-8 max-w-[1000px] 2xl:max-w-[2000px] mx-auto"
         ></div>
       </div>
     </main>
-
-    <footer class="sticky bottom-0 w-full bg-[#8F1E42]">
-      <div class="block flex flex-col items-center border-t border-white py-5">
+    <footer class="bg-[#8F1E42] w-full text-center border-t border-grey">
+      <div class="flex flex-col mx-auto py-5 max-w-[1300px]">
         <div class="flex flex-row gap-x-6 justify-center">
           <a
             class="group"
