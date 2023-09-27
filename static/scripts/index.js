@@ -1,7 +1,6 @@
 "use strict";
 
 const toggleButton = document.getElementById("toggle");
-const output = document.getElementById("output");
 const languageSelect = document.getElementById("language");
 const skeleton = document.getElementById("skeleton");
 
@@ -21,6 +20,8 @@ const toggleListening = () => {
     recognition.interimResults = true;
     recognition.lang = languageSelect.value; // Use the selected language
     // recognition.lang = 'pt-BR'     recognition.start();
+    // recognition.lang = 'pt-BR'
+    recognition.start();
     recognition.addEventListener("result", convertToText);
     toggleButton.classList.add("animate-bounce");
   }
