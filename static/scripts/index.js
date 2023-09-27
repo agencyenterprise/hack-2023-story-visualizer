@@ -47,13 +47,17 @@ function removeSkeleton() {
 
 let recognition = null;
 
-const toggleListening = () => {
-  if (recognition) {
+const stopRecognition = () => {
+   if (recognition) {
     // If recognition is active, stop it
     recognition.stop();
     recognition = null;
     toggleButton.classList.remove("animate-bounce");
-  } else {
+  }
+}
+
+const startRecognition = () => {
+  if (!recognition) {
     // If recognition is not active, start it
     recognition = new webkitSpeechRecognition();
     recognition.continuous = true;
@@ -62,7 +66,25 @@ const toggleListening = () => {
     // recognition.lang = 'pt-BR'     recognition.start();
     // recognition.lang = 'pt-BR'
     recognition.start();
+
+    // Listeners
+    recognition.addEventListener("error", e => {
+        console.log("Error during recognition:", e);
+        if (recognition) {
+          stopRecognition(); // Stop current recognition
+          startRecognition(); // Start new recognition with new language
+        }
+    });
+    recognition.addEventListener("soundend", e => {
+        if (recognition) {
+          console.log("Sound has ended. Restarting recognition...");
+          stopRecognition(); // Stop current recognition
+          startRecognition(); // Start new recognition with new language
+        }
+    });
     recognition.addEventListener("result", convertToText);
+
+    // Animation
     toggleButton.classList.add("animate-bounce");
   }
 };
@@ -80,9 +102,15 @@ const convertToText = async (event) => {
 // Add event listener to languageSelect
 languageSelect.addEventListener("change", () => {
   if (recognition) {
-    toggleListening(); // Stop current recognition
-    toggleListening(); // Start new recognition with new language
+    stopRecognition(); // Stop current recognition
+    startRecognition(); // Start new recognition with new language
   }
 });
 
-toggleButton.addEventListener("click", toggleListening);
+toggleButton.addEventListener("click", () => {
+  if (!recognition) {
+    startRecognition(); // Start new recognition with new language
+  } else {
+    stopRecognition(); // Stop current recognition
+  }
+});

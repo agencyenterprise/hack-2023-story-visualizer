@@ -2,21 +2,25 @@
 
 async function fetchAndDisplayImage(text) {
     appendSkeleton();
+    let data;
 
-    const response = await fetch("/generate_image", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text: text }),
-    });
-    const data = await response.json();
-//    document.querySelector(".lds-facebook").style = "display:none";
+    try {
+      const response = await fetch("/generate_image", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: text }),
+      });
+      data = await response.json();
+    } catch {
+      removeSkeleton();
+    }
 
     if (data.image) {
       // Create main div
       const mainDiv = document.createElement('div');
-      mainDiv.className = 'border border-gray-300 rounded-lg p-4 bg-gray-200 flex flex-col items-center gap-2 w-full sm:w-[45%]';
+      mainDiv.className = 'border border-gray-200 rounded-lg p-4 bg-gray-200 flex flex-col items-center gap-2 w-full sm:w-[45%]';
 
       // Create container div and img
       const containerDiv = document.createElement('div');
@@ -30,14 +34,13 @@ async function fetchAndDisplayImage(text) {
       img.style.opacity = '0';
       img.style.transition = 'all 0.2s ease';
       img.onerror = "this.onerror=null; this.src='/static/img-loader.svg'";
-//      img.onload = "this.style.opacity=1;";
 
       // Add img to containerDiv
       containerDiv.appendChild(img);
 
       // Create p
       const pTag = document.createElement('p');
-      pTag.className = 'text-sm';
+      pTag.className = 'text-';
       pTag.innerText = text;
 
       // Add containerDiv and pTag to mainDiv
@@ -49,7 +52,6 @@ async function fetchAndDisplayImage(text) {
       const imagesContainer = document.getElementById("images")
       imagesContainer.prepend(mainDiv);
 
-      // window.scrollTo(0,document.body.scrollHeight);
       img.onload = function () {
         img.scrollIntoView({ behavior: "smooth", block: "end" }); // Scroll to the last image added
         img.style.opacity = "1";

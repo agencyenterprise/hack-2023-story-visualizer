@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
     <title>Story visualizer</title>
+    <link rel="stylesheet" href="/static/styles/index.css">
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
     <header class="bg-[#8F1E42] text-center border-b border-grey">
       <div
-        class="flex flex-row justify-around items-center w-full max-w-[1400px] mx-auto"
+        class="flex flex-row justify-around items-center w-full max-w-[1400px] mx-auto relative"
       >
-        <div>
+        <div class="p-5">
           <img
             src="logo.svg"
             alt="Product Logo"
             class="w-[130px] md:w-[180px] h-auto"
           />
         </div>
-        <div class="flex flex-col justify-center items-center gap-y-2">
+
+        <div class="flex flex-col justify-center items-center gap-y-2 absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2">
           <button
             type="button"
             id="toggle"
-            class="bg-white p-8 rounded-full w-34 h-34"
+            class="bg-white p-6 rounded-full"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -39,6 +44,7 @@
             </svg>
           </button>
         </div>
+
         <div class="flex flex-col justify-center p-5">
           <label for="language" class="mb-2 text-xs font text-white"
             >Select a language</label
@@ -66,7 +72,7 @@
       </div>
     </header>
     <main class="flex-1 overflow-y-scroll">
-      <div class="w-full col-span-3 p-5">
+      <div class="w-full col-span-3 px-5 py-8">
         <div
           id="images"
           class="flex flex-row flex-wrap justify-center gap-4 xl:gap-8 max-w-[1000px] 2xl:max-w-[2000px] mx-auto"
@@ -75,7 +81,7 @@
     </main>
     <footer class="bg-[#8F1E42] w-full text-center border-t border-grey">
       <div class="flex flex-col mx-auto py-5 max-w-[1300px]">
-        <div class="flex flex-row gap-x-6 justify-center">
+        <div class="flex flex-row gap-x-4 justify-center">
           <a
             class="group"
             aria-label="AE Studio on Twitter"
@@ -106,7 +112,7 @@
         <p
           class="flex flex-wrap justify-center text-center mt-2 gap-1 text-sm text-white"
         >
-          made with ❤️ by <a href="https://ae.studio/">AE Studio</a>
+          Made with ❤️ by <a href="https://ae.studio/">AE Studio</a>
         </p>
       </div>
     </footer>
