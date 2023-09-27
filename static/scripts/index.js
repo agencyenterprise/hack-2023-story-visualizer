@@ -10,7 +10,7 @@ function reverseChildren(parent) {
   }
 }
 
-function appendSkeleton(text) {
+function appendSkeleton(text = null) {
   // Create main skeleton div
   const existingSkeleton = document.getElementById("skeleton");
   if (existingSkeleton) return;
@@ -24,15 +24,25 @@ function appendSkeleton(text) {
   innerDiv.className =
     "border border-gray-300 rounded-lg p-4 bg-gray-200 flex flex-col items-center gap-2 animate-pulse w-full";
 
-  const childDiv = document.createElement("div");
-  childDiv.className =
-    "aspect-square w-full max-w-[1000px] max-h-[1000px] bg-gray-300 rounded";
-  innerDiv.appendChild(childDiv);
-
-  const pTag = document.createElement("p");
-  pTag.className = "text-sm";
-  pTag.innerText = text;
-  innerDiv.appendChild(pTag);
+  if (!text) {
+    // Create 3 child divs and add them to the innerDiv
+    for (let i = 0; i < 3; i++) {
+      const childDiv = document.createElement("div");
+      if (i === 0) {
+        childDiv.className =
+          "aspect-square w-full max-w-[1000px] max-h-[1000px] bg-gray-300 rounded";
+      } else {
+        childDiv.className =
+          "h-4 bg-gray-300 rounded" + (i === 2 ? " w-1/3" : " w-full");
+      }
+      innerDiv.appendChild(childDiv);
+    }
+  } else {
+    const pTag = document.createElement("p");
+    pTag.className = "text-sm";
+    pTag.innerText = text;
+    innerDiv.appendChild(pTag);
+  }
 
   // Add innerDiv to skeleton
   skeleton.appendChild(innerDiv);
