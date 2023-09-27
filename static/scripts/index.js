@@ -55,16 +55,22 @@ function updateSkeleton(text, imgUrl) {
   const childDiv = document.getElementById(`skeleton-childDiv-${text}`);
 
   if (innerDiv && childDiv) {
+    const aspectRatioDiv = document.createElement("div");
+    aspectRatioDiv.className = "relative w-full pb-[100%] h-0";
+
     const img = document.createElement("img");
     img.src = imgUrl;
     img.alt = "Instagram Post";
-    img.className = "aspect-square w-full h-full max-w-[1000px] max-h-[1000px]";
+    img.className =
+      "aspect-square w-full h-full max-w-[1000px] max-h-[1000px] absolute top-0 left-0";
     img.style.opacity = "0";
     img.style.transition = "all 0.2s ease";
     img.onerror = "this.onerror=null; this.src='/static/img-loader.svg'";
 
+    aspectRatioDiv.appendChild(img);
+
     innerDiv.classList.remove("animate-pulse");
-    innerDiv.prepend(img);
+    innerDiv.prepend(aspectRatioDiv);
 
     if (childDiv) childDiv.remove();
 
