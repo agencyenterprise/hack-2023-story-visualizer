@@ -31,10 +31,17 @@ async function fetchAndDisplayImage(text) {
     img.style.transition = "all 0.2s ease";
     img.onerror = "this.onerror=null; this.src='/static/img-loader.svg'";
 
+    // Add img to containerDiv
+    containerDiv.appendChild(img);
+
     // Create p
     const pTag = document.createElement("p");
     pTag.className = "text-sm";
     pTag.innerText = text;
+
+    // Add containerDiv and pTag to mainDiv
+    mainDiv.appendChild(containerDiv);
+    mainDiv.appendChild(pTag);
 
     // Add mainDiv to the images container
     removeSkeleton();
