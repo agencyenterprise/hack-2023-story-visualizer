@@ -7,14 +7,15 @@
   </head>
   <body class="h-full w-full">
     <div class="grid grid-cols-4 h-full gap-3">
-      <div class="col-span-1 p-5 sticky top-0">
-        <div class="flex flex-col justify-center">
-          <h1 class="text-2xl font-bold">Story visualizer</h1>
-          <img src="logo.svg" alt="Product Logo" class="mt-4" />
+      <div class="col-span-1 bg-[#8F1E42]">
+        <div class="sticky top-0 p-5">
+        <div>
+          <img src="logo.svg" alt="Product Logo"  />
         </div>
         <div class="flex flex-col gap-5 my-5">
           <div class="flex flex-col">
-            <select id="language">
+            <label for="language" class="block mb-2 text-sm font-medium text-white">Select a language</label>
+            <select id="language" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
               <option value="en-US">English (United States)</option>
               <option value="en-GB">English (United Kingdom)</option>
               <option value="pt-BR">Português (Brasil)</option>
@@ -31,7 +32,7 @@
               <option value="ko-KR">한국어 (대한민국)</option>
             </select>
           </div>
-          <div class="flex w-full justify-center">
+          <div class="flex w-full justify-center mt-2">
             <button id="toggle" class="bg-white rounded-full p-5">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -51,6 +52,7 @@
           </div>
           <div class="flex justify-center">
             <p id="output" class="font-semibold italic text-2xl"></p>
+          </div>
           </div>
         </div>
       </div>
