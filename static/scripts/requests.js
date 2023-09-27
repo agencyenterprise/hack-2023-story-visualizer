@@ -43,7 +43,8 @@ async function fetchAndDisplayImage(text) {
 
     // Create p
     const pTag = document.createElement("p");
-    pTag.className = "text-sm";
+    pTag.className =
+      "text-sm sm:text-base lg:text-xl xl:text-3xl text-center  p-4";
     pTag.innerText = text;
 
     // Add containerDiv and pTag to mainDiv
@@ -53,10 +54,12 @@ async function fetchAndDisplayImage(text) {
     // Add mainDiv to the images container
     removeSkeleton();
     const imagesContainer = document.getElementById("images");
-    imagesContainer.prepend(mainDiv);
+    imagesContainer.appendChild(mainDiv);
 
     img.onload = function () {
-      img.scrollIntoView({ behavior: "smooth", block: "end" }); // Scroll to the last image added
+      // img.scrollIntoView({ behavior: "smooth", block: "end" }); // Scroll to the last image added
+      const scrollTarget = document.getElementById("scrollTarget");
+      scrollTarget.scrollIntoView({ behavior: "smooth", block: "end" }); // Scroll to the last image added
       img.style.opacity = "1";
     };
   }

@@ -30,7 +30,8 @@ function appendSkeleton(text) {
   innerDiv.appendChild(childDiv);
 
   const pTag = document.createElement("p");
-  pTag.className = "text-sm";
+  pTag.className =
+    "text-sm sm:text-base lg:text-xl xl:text-3xl text-center p-4";
   pTag.innerText = text;
   innerDiv.appendChild(pTag);
 
@@ -38,7 +39,7 @@ function appendSkeleton(text) {
   skeleton.appendChild(innerDiv);
   // Append skeleton to the body or another container
   const imagesContainer = document.getElementById("images");
-  imagesContainer.prepend(skeleton);
+  imagesContainer.appendChild(skeleton);
 }
 
 function removeSkeleton() {

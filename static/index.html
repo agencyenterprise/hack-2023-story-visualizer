@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
     <title>Story visualizer</title>
-    <link rel="stylesheet" href="/static/styles/index.css">
+    <link rel="stylesheet" href="/static/styles/index.css" />
   </head>
   <body class="flex flex-col h-screen overflow-hidden">
-    <header class="bg-[#8F1E42] text-center border-b border-grey">
+    <header class="bg-[#8F1E42] text-center border-b border-grey w-full">
       <div
-        class="flex flex-row justify-around items-center w-full max-w-[1400px] mx-auto relative"
+        class="flex flex-row justify-around items-center w-full max-w-[2000px] mx-auto relative"
       >
         <div class="p-5">
           <img
@@ -22,12 +25,10 @@
           />
         </div>
 
-        <div class="flex flex-col justify-center items-center gap-y-2 absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2">
-          <button
-            type="button"
-            id="toggle"
-            class="bg-white p-6 rounded-full"
-          >
+        <div
+          class="flex flex-col justify-center items-center gap-y-2 absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2"
+        >
+          <button type="button" id="toggle" class="bg-white p-6 rounded-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -78,6 +79,7 @@
           class="flex flex-row flex-wrap justify-center gap-4 xl:gap-8 max-w-[1000px] 2xl:max-w-[2000px] mx-auto"
         ></div>
       </div>
+      <div id="scrollTarget" class="w-full" />
     </main>
     <footer class="bg-[#8F1E42] w-full text-center border-t border-grey">
       <div class="flex flex-col mx-auto py-5 max-w-[1300px]">
