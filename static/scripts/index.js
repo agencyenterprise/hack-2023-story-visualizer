@@ -18,7 +18,7 @@ function appendSkeleton(text, id) {
 
   const skeleton = document.createElement("div");
   skeleton.id = id;
-  skeleton.className = "w-full sm:w-[45%]";
+  skeleton.className = "w-full sm:w-[45%] flex";
 
   // Create inner div
   const innerDiv = document.createElement("div");
