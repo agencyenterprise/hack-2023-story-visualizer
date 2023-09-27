@@ -10,13 +10,13 @@ function reverseChildren(parent) {
   }
 }
 
-function appendSkeleton(text) {
+function appendSkeleton(text, id) {
   // Create main skeleton div
-  const existingSkeleton = document.getElementById("skeleton");
+  const existingSkeleton = document.getElementById(id);
   if (existingSkeleton) return;
 
   const skeleton = document.createElement("div");
-  skeleton.id = "skeleton";
+  skeleton.id = id;
   skeleton.className = "w-full sm:w-[45%]";
 
   // Create inner div
@@ -42,8 +42,8 @@ function appendSkeleton(text) {
   imagesContainer.appendChild(skeleton);
 }
 
-function removeSkeleton() {
-  const skeleton = document.getElementById("skeleton");
+function removeSkeleton(id) {
+  const skeleton = document.getElementById(id);
   if (skeleton) skeleton.remove();
 }
 
@@ -95,7 +95,7 @@ const convertToText = async (event) => {
   for (let i = event.resultIndex; i < event.results.length; i++) {
     if (event.results[i].isFinal) {
       const content = event.results[i][0].transcript.trim();
-      appendSkeleton(content);
+      appendSkeleton(content, `skeleton-${content}`);
       await fetchAndDisplayImage(content); // Call the function with the final text
     }
   }

@@ -1,7 +1,6 @@
 "use strict";
 
 async function fetchAndDisplayImage(text) {
-  appendSkeleton();
   let data;
 
   try {
@@ -14,7 +13,7 @@ async function fetchAndDisplayImage(text) {
     });
     data = await response.json();
   } catch {
-    removeSkeleton();
+    removeSkeleton(`skeleton-${text}`);
   }
 
   if (data.image) {
@@ -52,7 +51,7 @@ async function fetchAndDisplayImage(text) {
     mainDiv.appendChild(pTag);
 
     // Add mainDiv to the images container
-    removeSkeleton();
+    removeSkeleton(`skeleton-${text}`);
     const imagesContainer = document.getElementById("images");
     imagesContainer.appendChild(mainDiv);
 
