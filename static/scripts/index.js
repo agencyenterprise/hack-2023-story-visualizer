@@ -63,7 +63,7 @@ function updateSkeleton(text, imgUrl) {
     img.src = imgUrl;
     img.alt = "Instagram Post";
     img.className =
-      "aspect-square w-full h-full max-w-[1000px] max-h-[1000px] absolute top-0 left-0 mb-4";
+      "aspect-square w-full h-full max-w-[1000px] max-h-[1000px] absolute top-0 left-0";
     img.style.opacity = "0";
     img.style.transition = "all 0.2s ease";
     img.onerror = "this.onerror=null; this.src='/static/img-loader.svg'";
@@ -78,7 +78,12 @@ function updateSkeleton(text, imgUrl) {
     img.onload = function () {
       // img.scrollIntoView({ behavior: "smooth", block: "end" }); // Scroll to the last image added
       // const scrollTarget = document.getElementById("scrollTarget");
-      img.scrollIntoView({ behavior: "smooth", block: "end" }); // Scroll to the last image added
+      skeleton.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      }); // Scroll to the last image added
+      // window.scrollBy({ top: 16, behavior: "smooth" });
       img.style.opacity = "1";
     };
   }
