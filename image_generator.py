@@ -6,8 +6,7 @@ import requests
 
 load_dotenv()
 
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 def get_promtp(text: str):
     """Returns a prompt for the user to complete."""

@@ -2,7 +2,6 @@
 
 const toggleButton = document.getElementById("toggle");
 const languageSelect = document.getElementById("language");
-const skeleton = document.getElementById("skeleton");
 
 let recognition = null;
 
@@ -29,7 +28,6 @@ const toggleListening = () => {
 const convertToText = async (event) => {
   for (let i = event.resultIndex; i < event.results.length; i++) {
     if (event.results[i].isFinal) {
-      skeleton.style.display = "block";
       const content = event.results[i][0].transcript.trim();
       await fetchAndDisplayImage(content); // Call the function with the final text
     }
