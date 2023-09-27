@@ -23,6 +23,13 @@ async function fetchAndDisplayImage(text) {
     mainDiv.className =
       "border border-gray-200 rounded-lg p-4 bg-gray-200 flex flex-col items-center gap-2 w-full sm:w-[45%]";
 
+    // Create container div and img
+    const containerDiv = document.createElement("div");
+    containerDiv.className =
+      "aspect-square w-full max-w-[1000px] max-h-[1000px]";
+    containerDiv.style.background =
+      "url(/static/img-loader.svg) no-repeat center";
+
     const img = document.createElement("img");
     img.src = data.image;
     img.alt = "Instagram Post";
