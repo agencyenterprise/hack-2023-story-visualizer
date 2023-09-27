@@ -7,6 +7,10 @@ app = Flask(__name__)
 def index():
     return send_file("index.html")
 
+@app.route('/logo.svg')
+def logo():
+    return send_file("logo.svg")
+
 @app.route('/generate_image', methods=['POST'])
 def generate_image_endpoint():
     text = request.json['text']

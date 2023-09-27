@@ -1,199 +1,236 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
     <title>Story visualizer</title>
-    <style>
-        /*
-            Edy Segura
-            https://loading.io/css/
-        */
-        .lds-facebook {
-            display: inline-block;
-            position: relative;
-            width: 80px;
-            height: 80px;
-        }
-
-        .lds-facebook div {
-            display: inline-block;
-            position: absolute;
-            left: 8px;
-            width: 16px;
-            background: #000;
-            animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
-        }
-
-        .lds-facebook div:nth-child(1) {
-            left: 8px;
-            animation-delay: -0.24s;
-        }
-
-        .lds-facebook div:nth-child(2) {
-            left: 32px;
-            animation-delay: -0.12s;
-        }
-
-        .lds-facebook div:nth-child(3) {
-            left: 56px;
-            animation-delay: 0;
-        }
-
-        @keyframes lds-facebook {
-            0% {
-                top: 8px;
-                height: 64px;
-            }
-
-            50%,
-            100% {
-                top: 24px;
-                height: 32px;
-            }
-        }
-
-        /* CSS for split page layout */
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        .fixed-area {
-            background-color: lightgray;
-            padding: 10px;
-        }
-
-        .scrollable-area {
-            flex-grow: 1;
-            overflow-y: scroll;
-            background-color: white;
-            padding: 10px;
-        }
-    </style>
-</head>
-
-<body>
-    <h1>Story visualizer</h1>
-
-    <div class="container">
-        <div class="fixed-area">
-            <!-- Fixed area where scrolling is not possible -->
-            <p id="output"></p>
-
+  </head>
+  <body class="h-full w-full">
+    <div class="grid grid-cols-4 h-full gap-3">
+      <div class="col-span-1 p-5 sticky top-0">
+        <div class="flex flex-col justify-center">
+          <h1 class="text-2xl font-bold">Story visualizer</h1>
+          <img src="logo.svg" alt="Product Logo" class="mt-4" />
+        </div>
+        <div class="flex flex-col gap-5 my-5">
+          <div class="flex flex-col">
             <select id="language">
-                <option value="en-US">English (United States)</option>
-                <option value="en-GB">English (United Kingdom)</option>
-                <option value="pt-BR">Português (Brasil)</option>
-                <option value="pt-PT">Português (Portugal)</option>
-                <option value="es-ES">Español (España)</option>
-                <option value="es-MX">Español (México)</option>
-                <option value="fr-FR">Français (France)</option>
-                <option value="de-DE">Deutsch (Deutschland)</option>
-                <option value="it-IT">Italiano (Italia)</option>
-                <option value="ru-RU">Русский (Россия)</option>
-                <option value="zh-CN">简体中文 (中国)</option>
-                <option value="zh-TW">繁體中文 (台灣)</option>
-                <option value="ja-JP">日本語 (日本)</option>
-                <option value="ko-KR">한국어 (대한민국)</option>
+              <option value="en-US">English (United States)</option>
+              <option value="en-GB">English (United Kingdom)</option>
+              <option value="pt-BR">Português (Brasil)</option>
+              <option value="pt-PT">Português (Portugal)</option>
+              <option value="es-ES">Español (España)</option>
+              <option value="es-MX">Español (México)</option>
+              <option value="fr-FR">Français (France)</option>
+              <option value="de-DE">Deutsch (Deutschland)</option>
+              <option value="it-IT">Italiano (Italia)</option>
+              <option value="ru-RU">Русский (Россия)</option>
+              <option value="zh-CN">简体中文 (中国)</option>
+              <option value="zh-TW">繁體中文 (台灣)</option>
+              <option value="ja-JP">日本語 (日本)</option>
+              <option value="ko-KR">한국어 (대한민국)</option>
             </select>
-
-            <button id="toggle">Click and say something!</button>
-            <script src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-            <script>
-                'use strict'
-
-                const toggleButton = document.getElementById('toggle')
-                const output = document.getElementById('output')
-                const languageSelect = document.getElementById('language')
-
-                let recognition = null;
-
-                const toggleListening = () => {
-                    if (recognition) {
-                        // If recognition is active, stop it
-                        recognition.stop()
-                        recognition = null
-                        output.textContent = ""
-                        toggleButton.textContent = "Click and say something!"
-                    } else {
-                        // If recognition is not active, start it
-                        recognition = new webkitSpeechRecognition()
-                        recognition.continuous = true
-                        recognition.interimResults = true
-                        recognition.lang = languageSelect.value // Use the selected language
-                        // recognition.lang = 'pt-BR'
-                        recognition.start()
-                        recognition.addEventListener('result', convertToText)
-                        toggleButton.textContent = "Listening... click to stop"
-                    }
-                }
-
-                const convertToText = event => {
-                    for (let i = event.resultIndex; i < event.results.length; i++) {
-                        if (event.results[i].isFinal) {
-                            const content = event.results[i][0].transcript.trim()
-                            output.textContent = content
-                            fetchAndDisplayImage(content); // Call the function with the final text
-                        }
-                    }
-                }
-
-                // Add event listener to languageSelect
-                languageSelect.addEventListener('change', () => {
-                    if (recognition) {
-                        toggleListening() // Stop current recognition
-                        toggleListening() // Start new recognition with new language
-                    }
-                })
-
-                toggleButton.addEventListener('click', toggleListening)
-            </script>
+          </div>
+          <div class="flex w-full justify-center">
+            <button id="toggle" class="bg-white rounded-full p-5">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-10 h-10"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="flex justify-center">
+            <p id="output" class="font-semibold italic text-2xl"></p>
+          </div>
         </div>
+      </div>
 
-        <div class="scrollable-area">
-            <!-- Scrollable area where scrolling is allowed -->
-            <div id="images"></div>
-            <div class="lds-facebook">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-
-            <script>
-                async function fetchAndDisplayImage(text) {
-                    const response = await fetch('/generate_image', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ text: text }),
-                    });
-                    const data = await response.json();
-                    document.querySelector(".lds-facebook").style = "display:none";
-                    if (data.image) {
-                        const p_text = document.createElement('p');
-                        const img = document.createElement('img');
-                        img.src = data.image;
-                        p_text.innerText = text
-                        document.getElementById('images').appendChild(p_text);
-                        document.getElementById('images').appendChild(img);
-
-                        // window.scrollTo(0,document.body.scrollHeight);
-                        img.onload = function () {
-                            img.scrollIntoView({ behavior: 'smooth', block: 'end' }); // Scroll to the last image added
-                        }
-                    }
-
-                }
-            </script>
+      <div class="w-full col-span-3 p-5">
+        <div class="flex flex-row flex-wrap">
+          <div class="border border-gray-300 rounded-lg p-4 mb-4 bg-gray-200">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Instagram Post"
+              class="mb-2"
+            />
+            <p class="text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div class="border border-gray-300 rounded-lg p-4 mb-4 bg-gray-200">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Instagram Post"
+              class="mb-2"
+            />
+            <p class="text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div class="border border-gray-300 rounded-lg p-4 mb-4 bg-gray-200">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Instagram Post"
+              class="mb-2"
+            />
+            <p class="text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div class="border border-gray-300 rounded-lg p-4 mb-4 bg-gray-200">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Instagram Post"
+              class="mb-2"
+            />
+            <p class="text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div class="border border-gray-300 rounded-lg p-4 mb-4 bg-gray-200">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Instagram Post"
+              class="mb-2"
+            />
+            <p class="text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div class="border border-gray-300 rounded-lg p-4 mb-4 bg-gray-200">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Instagram Post"
+              class="mb-2"
+            />
+            <p class="text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div class="border border-gray-300 rounded-lg p-4 mb-4 bg-gray-200">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Instagram Post"
+              class="mb-2"
+            />
+            <p class="text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div class="border border-gray-300 rounded-lg p-4 mb-4 bg-gray-200">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Instagram Post"
+              class="mb-2"
+            />
+            <p class="text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div class="border border-gray-300 rounded-lg p-4 mb-4 bg-gray-200">
+            <img
+              src="https://via.placeholder.com/150"
+              alt="Instagram Post"
+              class="mb-2"
+            />
+            <p class="text-sm">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </p>
+          </div>
+          <div id="images"></div>
+          <div class="lds-facebook">
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
         </div>
+      </div>
     </div>
-</body>
 
+    <script>
+      "use strict";
+
+      const toggleButton = document.getElementById("toggle");
+      const output = document.getElementById("output");
+      const languageSelect = document.getElementById("language");
+
+      let recognition = null;
+
+      const toggleListening = () => {
+        if (recognition) {
+          // If recognition is active, stop it
+          recognition.stop();
+          recognition = null;
+          output.textContent = "";
+          toggleButton.classList.remove("animate-bounce");
+        } else {
+          // If recognition is not active, start it
+          recognition = new webkitSpeechRecognition();
+          recognition.continuous = true;
+          recognition.interimResults = true;
+          recognition.lang = languageSelect.value; // Use the selected language
+          // recognition.lang = 'pt-BR'
+          recognition.start();
+          recognition.addEventListener("result", convertToText);
+          toggleButton.classList.add("animate-bounce");
+        }
+      };
+
+      const convertToText = (event) => {
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            const content = event.results[i][0].transcript.trim();
+            output.textContent = content;
+            fetchAndDisplayImage(content); // Call the function with the final text
+          }
+        }
+      };
+
+      // Add event listener to languageSelect
+      languageSelect.addEventListener("change", () => {
+        if (recognition) {
+          toggleListening(); // Stop current recognition
+          toggleListening(); // Start new recognition with new language
+        }
+      });
+
+      toggleButton.addEventListener("click", toggleListening);
+    </script>
+    <script>
+      async function fetchAndDisplayImage(text) {
+        const response = await fetch("/generate_image", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ text: text }),
+        });
+        const data = await response.json();
+        document.querySelector(".lds-facebook").style = "display:none";
+        if (data.image) {
+          const p_text = document.createElement("p");
+          const img = document.createElement("img");
+          img.src = data.image;
+          p_text.innerText = text;
+          document.getElementById("images").appendChild(p_text);
+          document.getElementById("images").appendChild(img);
+
+          // window.scrollTo(0,document.body.scrollHeight);
+          img.onload = function () {
+            img.scrollIntoView({ behavior: "smooth", block: "end" }); // Scroll to the last image added
+          };
+        }
+      }
+    </script>
+  </body>
 </html>
