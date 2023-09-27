@@ -18,22 +18,23 @@ function appendSkeleton(text, id) {
 
   const skeleton = document.createElement("div");
   skeleton.id = id;
-  skeleton.className = "w-full sm:w-[45%] flex";
+  skeleton.className = "w-full flex mx-auto max-w-[1200px] lg:max-w-screen";
 
   // Create inner div
   const innerDiv = document.createElement("div");
   innerDiv.id = `skeleton-innerDiv-${text}`;
   innerDiv.className =
-    "border border-gray-300 rounded-lg p-4 bg-gray-200 flex flex-col items-center gap-2 animate-pulse w-full";
+    "border border-gray-300 rounded-lg p-4 bg-gray-200 flex flex-row items-center gap-2 animate-pulse w-full";
 
   const childDiv = document.createElement("div");
   childDiv.id = `skeleton-childDiv-${text}`;
   childDiv.className =
-    "aspect-square w-full max-w-[1000px] max-h-[1000px] bg-gray-300 rounded";
+    "aspect-square w-[50%] max-w-[1000px] max-h-[1000px] bg-gray-300 rounded";
   innerDiv.appendChild(childDiv);
 
   const pTag = document.createElement("p");
-  pTag.className = "text-sm lg:text-base xl:text-lg text-center p-4";
+  pTag.className =
+    "text-sm lg:text-base xl:text-lg 2xl:text-4xl text-center p-4 flex-1";
   pTag.innerText = text;
   innerDiv.appendChild(pTag);
 
@@ -56,7 +57,7 @@ function updateSkeleton(text, imgUrl) {
 
   if (innerDiv && childDiv) {
     const aspectRatioDiv = document.createElement("div");
-    aspectRatioDiv.className = "relative w-full pb-[100%] h-0";
+    aspectRatioDiv.className = "relative w-[50%] pb-[50%] h-0";
 
     const img = document.createElement("img");
     img.src = imgUrl;
