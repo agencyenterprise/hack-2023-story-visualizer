@@ -32,8 +32,7 @@ function appendSkeleton(text, id) {
   innerDiv.appendChild(childDiv);
 
   const pTag = document.createElement("p");
-  pTag.className =
-    "text-sm sm:text-base lg:text-xl xl:text-3xl text-center p-4";
+  pTag.className = "text-sm lg:text-base xl:text-3xl text-center p-4";
   pTag.innerText = text;
   innerDiv.appendChild(pTag);
 
