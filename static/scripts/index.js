@@ -21,10 +21,12 @@ function appendSkeleton(text, id) {
 
   // Create inner div
   const innerDiv = document.createElement("div");
+  innerDiv.id = `skeleton-innerDiv-${text}`;
   innerDiv.className =
     "border border-gray-300 rounded-lg p-4 bg-gray-200 flex flex-col items-center gap-2 animate-pulse w-full";
 
   const childDiv = document.createElement("div");
+  childDiv.id = `skeleton-childDiv-${text}`;
   childDiv.className =
     "aspect-square w-full max-w-[1000px] max-h-[1000px] bg-gray-300 rounded";
   innerDiv.appendChild(childDiv);
@@ -45,6 +47,34 @@ function appendSkeleton(text, id) {
 function removeSkeleton(id) {
   const skeleton = document.getElementById(id);
   if (skeleton) skeleton.remove();
+}
+
+function updateSkeleton(text, imgUrl) {
+  const skeleton = document.getElementById(`skeleton-${text}`);
+  const innerDiv = document.getElementById(`skeleton-innerDiv-${text}`);
+  const childDiv = document.getElementById(`skeleton-childDiv-${text}`);
+
+  if (innerDiv && childDiv) {
+    const img = document.createElement("img");
+    img.src = imgUrl;
+    img.alt = "Instagram Post";
+    img.className = "aspect-square w-full h-full max-w-[1000px] max-h-[1000px]";
+    img.style.opacity = "0";
+    img.style.transition = "all 0.2s ease";
+    img.onerror = "this.onerror=null; this.src='/static/img-loader.svg'";
+
+    innerDiv.classList.remove("animate-pulse");
+    innerDiv.prepend(img);
+
+    if (childDiv) childDiv.remove();
+
+    img.onload = function () {
+      // img.scrollIntoView({ behavior: "smooth", block: "end" }); // Scroll to the last image added
+      const scrollTarget = document.getElementById("scrollTarget");
+      scrollTarget.scrollIntoView({ behavior: "smooth", block: "end" }); // Scroll to the last image added
+      img.style.opacity = "1";
+    };
+  }
 }
 
 let recognition = null;
