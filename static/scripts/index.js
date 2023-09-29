@@ -5,6 +5,19 @@ const toogleText = document.getElementById("toggle-text");
 const languageSelect = document.getElementById("language");
 const progressBar = document.getElementById("progress");
 
+let wordQueue = [];
+
+const processQueue = async () => {
+
+  while (wordQueue.length > 0) {
+    const words = wordQueue.splice(0, 10); // Get the first 10 words and remove them from the queue
+    const content = words.join(' ');
+    appendSkeleton(content, `skeleton-${content}`);
+    //await fetchAndDisplayImage(content); // Call the function with the final text
+    await fetchAndDisplayImage2(content); // Call the function with the final text
+  }
+};
+
 function reverseChildren(parent) {
   for (var i = 1; i < parent.childNodes.length; i++) {
     parent.insertBefore(parent.childNodes[i], parent.firstChild);
@@ -108,7 +121,6 @@ const startRecognition = () => {
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = languageSelect.value; // Use the selected language
-    // recognition.lang = 'pt-BR'     recognition.start();
     // recognition.lang = 'pt-BR'
     recognition.start();
 
@@ -135,12 +147,25 @@ const startRecognition = () => {
   }
 };
 
+// const convertToText = async (event) => {
+//   for (let i = event.resultIndex; i < event.results.length; i++) {
+//     if (event.results[i].isFinal) {
+//       const content = event.results[i][0].transcript.trim();
+//       appendSkeleton(content, `skeleton-${content}`);
+//       await fetchAndDisplayImage(content); // Call the function with the final text
+//     }
+//   }
+// };
+
 const convertToText = async (event) => {
   for (let i = event.resultIndex; i < event.results.length; i++) {
     if (event.results[i].isFinal) {
-      const content = event.results[i][0].transcript.trim();
-      appendSkeleton(content, `skeleton-${content}`);
-      await fetchAndDisplayImage(content); // Call the function with the final text
+      const words = event.results[i][0].transcript.trim().split(' ');
+      wordQueue.push(...words);
+//      if (timer === null) {
+//        timer = setTimeout(processQueue, 2000); // Set a timer to process the queue after 3 seconds
+//      }
+      await processQueue();
     }
   }
 };

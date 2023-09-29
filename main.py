@@ -1,5 +1,5 @@
-from flask import Flask, send_file, request, jsonify
-from image_generator import generate_image
+from flask import Flask, request, jsonify
+from image_generator import generate_image, generate_image2
 
 app = Flask(__name__, static_url_path='/static', static_folder='static')
 
@@ -14,8 +14,15 @@ def logo():
 @app.route('/generate_image', methods=['POST'])
 def generate_image_endpoint():
     text = request.json['text']
-    print(text)
+    # print("main.py -> 17: " + text)
     image = generate_image(text)
+    return jsonify({'image': image})
+
+@app.route('/generate_image2', methods=['POST'])
+def generate_image_endpoint2():
+    text = request.json['text']
+    # print("main.py -> 24: " + text)
+    image = generate_image2(text)
     return jsonify({'image': image})
 
 if __name__ == '__main__':
