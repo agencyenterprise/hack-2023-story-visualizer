@@ -6,17 +6,15 @@ const languageSelect = document.getElementById("language");
 const progressBar = document.getElementById("progress");
 
 let wordQueue = [];
-//let timer = null;
 
 const processQueue = async () => {
-//  if (wordQueue.length >= 5 || timer === null) {
+
   while (wordQueue.length > 0) {
-//    clearTimeout(timer);
-//    timer = null;
-    const words = wordQueue.splice(0, 5); // Get the first 5 words and remove them from the queue
+    const words = wordQueue.splice(0, 10); // Get the first 10 words and remove them from the queue
     const content = words.join(' ');
     appendSkeleton(content, `skeleton-${content}`);
-    await fetchAndDisplayImage(content); // Call the function with the final text
+    //await fetchAndDisplayImage(content); // Call the function with the final text
+    await fetchAndDisplayImage2(content); // Call the function with the final text
   }
 };
 

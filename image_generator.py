@@ -1,12 +1,9 @@
 import openai
-
 from dotenv import load_dotenv
 import os
 import requests
 
 load_dotenv()
-
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 def get_promtp(text: str):
     """Returns a prompt for the user to complete."""
@@ -33,7 +30,7 @@ def get_promtp(text: str):
 def text_completion(text):
     # Perform text-to-image generation here
     try:  
-        openai.api_key = OPENAI_API_KEY
+        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
         response = openai.Completion.create(
             engine="davinci",
             prompt = text,
@@ -54,9 +51,10 @@ def text_completion(text):
 def generate_image(text):
     # Perform text-to-image generation here
     try:
+        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
         openai.api_key = OPENAI_API_KEY
         if text:
-            print(text)
+            # print("generate_image -> 59: " + text)
             #text = text_completion(get_promtp(text))
             if text:
                 response = openai.Image.create(
@@ -75,48 +73,64 @@ def generate_image2(text):
     #Leonardo.ai
     try:
         if text:
-            print("--------> here")
-            LEONARDOAI_API_KEY = os.getenv("LEONARDOAI_API_KEY")
-            print(text)
-            if text:
-                # response = openai.Image.create(
-                #     prompt = text,
-                #     n=1,
-                #     size="256x256"
-                # )
-                url = "https://cloud.leonardo.ai/api/rest/v1/generations"
-                payload = {
-                    "height": 256,
-                    "modelId": "6bef9f1b-29cb-40c7-b9df-32b51c1f67d3",
-                    "prompt": text,
-                    "width": 256
-                }
-                headers = {
-                    "accept": "application/json",
-                    "content-type": "application/json",
-                    "authorization": "Bearer " + LEONARDOAI_API_KEY
-                }
-                response = requests.post(url, json=payload, headers=headers)
-                print(response.text)
 
+            # Get User Information, access token
+            # https://docs.leonardo.ai/reference/getuserself
 
-                url2 = "https://cloud.leonardo.ai/api/rest/v1/generations/" + response
+            print("generate_image2 -> 90: " + text)
 
-                headers2 = {
-                    "accept": "application/json",
-                    "authorization": "Bearer " + LEONARDOAI_API_KEY
-                }
+            url = "https://cloud.leonardo.ai/api/rest/v1/me"
 
-                response2 = requests.get(url, headers=headers)
+            headers = {
+                "accept": "application/json",
+                "content-type": "application/json",
+                "authorization": "Bearer " + os.getenv("LEONARDOAI_API_KEY"),
+            }
 
-                print(response.text)
+            response = requests.get(url, headers=headers, timeout=5)
 
-                image_url = response2['data'][0]['url']
-                return image_url
+            print("---> Get User Information -> 106: " + response.text)
+
+            # Create a generation of images
+            # https://docs.leonardo.ai/reference/creategeneration
+
+            url = "https://cloud.leonardo.ai/api/rest/v1/generations"
+
+            payload = {
+                "height": 256,
+                # "modelId": "6bef9f1b-29cb-40c7-b9df-32b51c1f67d3", # Leonardo Creative
+                # "modelId": "cd2b2a15-9760-4174-a5ff-4d2925057376", # Leonardo Select
+                # "modelId": "291be633-cb24-434f-898f-e662799936ad", # Leonardo Signature 
+                # "modelId": "ac614f96-1082-45bf-be9d-757f2d31c174", # DreamShaper v7
+                "modelId": "d69c8273-6b17-4a30-a13e-d6637ae1c644", # 3D anumation style
+                "prompt": text,
+                "width": 256,
+                "promptMagic": True,
+                "promptMagicVersion": "v2",
+                "highContrast": True,
+                "guidance_scale": 7,
+                "imagePromptWeight": 0.4,
+                "presetStyle": "LEONARDO"
+            }
+
+            response2 = requests.post(url, json=payload, headers=headers, timeout=5)
+
+            print("---> Create a generation of images -> 128: " + response2.text)
+            myGenerationId = response2.json()['sdGenerationJob']['generationId']
+            print("---> generationId -> 130: " + myGenerationId)
+
+            # Get info about a single generation of images
+            # https://docs.leonardo.ai/reference/getgenerationbyid
+            url = "https://cloud.leonardo.ai/api/rest/v1/generations/" + myGenerationId
+
+            myStatus = ""
+            while myStatus != "COMPLETE":
+                response3 = requests.get(url, headers=headers, timeout=5)
+                myStatus = response3.json()['generations_by_pk']['status']
+
+            image_url = response3.json()['generations_by_pk']['generated_images'][0]['url']
+            return image_url
 
     except Exception as e:
-        print("An error occurred while generating the image: ", e)
+        print("An error occurred while generating the Leonardo.ai image: ", e)
         response = None        
-
-
-
