@@ -11,6 +11,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.18",
     "@leonardo-ai/sdk": "^1.58.3",
+    "@sentry/nextjs": "^7.73.0",
     "@types/react": "^18.2.25",
     "next": "13.5.4",
     "openai": "^4.11.1",
