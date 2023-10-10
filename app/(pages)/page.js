@@ -121,7 +121,8 @@ export default function Home() {
         "aspect-square w-full h-full max-w-[1000px] max-h-[1000px] absolute top-0 left-0";
       img.style.opacity = "0";
       img.style.transition = "all 0.2s ease";
-      img.onerror = "this.onerror=null; this.src='/static/img-loader.svg'";
+      img.onerror =
+        "this.onerror=null; this.src='https://www.storyvisualizer.com/img-loader.svg'";
 
       aspectRatioDiv.appendChild(img);
 
