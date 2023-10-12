@@ -143,13 +143,24 @@ export default function Home() {
     }
   }
 
+  const wordQueue = [];
   const convertToText = async (event) => {
     for (let i = event.resultIndex; i < event.results.length; i++) {
       if (event.results[i].isFinal) {
-        const content = event.results[i][0].transcript.trim();
-        appendSkeleton(content, `skeleton-${content}`);
-        await fetchAndDisplayImage(content);
+        const words = event.results[i][0].transcript.trim().split(" ");
+        wordQueue.push(...words);
+
+        await processQueue();
       }
+    }
+  };
+
+  const processQueue = async () => {
+    while (wordQueue.length > 0) {
+      const words = wordQueue.splice(0, 5);
+      const content = words.join(" ");
+      appendSkeleton(content, `skeleton-${content}`);
+      await fetchAndDisplayImage(content);
     }
   };
 
@@ -232,64 +243,6 @@ export default function Home() {
           </div>
         </div>
       </header>
-      {/* <header className="bg-[#8F1E42] text-center border-b border-grey w-full">
-        <div className="flex flex-row justify-around sm:items-center h-[100px] sm:h-auto w-full max-w-[2000px] mx-auto relative mt-3">
-          <div className="p-5 w-[130px] md:w-[180px] h-auto relative">
-            <Image
-              layout="fill"
-              src="logo.svg"
-              alt="Product Logo"
-              objectFit="contain"
-            />
-          </div>
-
-          <div className="flex flex-col justify-center items-center gap-y-2 absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2">
-            <button
-              ref={toggleButton}
-              type="button"
-              id="toggle"
-              className="bg-white p-5 rounded-full"
-              onClick={handleButtonClick}
-            >
-              <MicrophoneIcon className="w-6 h-6 text-[#8F1E42]" />
-            </button>
-            <p
-              ref={toogleText}
-              className="text-white italic text-sm"
-              id="toggle-text"
-            >
-              Try to use short sentences
-            </p>
-          </div>
-
-          <div className="flex flex-col justify-center p-5">
-            <label htmlFor="language" className="mb-2 text-sm font text-white">
-              Select a language
-            </label>
-            <select
-              ref={languageSelect}
-              id="language"
-              onChange={handleSelectChange}
-              className="p-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
-            >
-              <option value="en-US">English (United States)</option>
-              <option value="en-GB">English (United Kingdom)</option>
-              <option value="pt-BR">Português (Brasil)</option>
-              <option value="pt-PT">Português (Portugal)</option>
-              <option value="es-ES">Español (España)</option>
-              <option value="es-MX">Español (México)</option>
-              <option value="fr-FR">Français (France)</option>
-              <option value="de-DE">Deutsch (Deutschland)</option>
-              <option value="it-IT">Italiano (Italia)</option>
-              <option value="ru-RU">Русский (Россия)</option>
-              <option value="zh-CN">简体中文 (中国)</option>
-              <option value="zh-TW">繁體中文 (台灣)</option>
-              <option value="ja-JP">日本語 (日本)</option>
-              <option value="ko-KR">한국어 (대한민국)</option>
-            </select>
-          </div>
-        </div>
-      </header> */}
       <div className="flex-1 overflow-y-scroll">
         <div className="w-full col-span-3 px-5 py-8">
           <div
