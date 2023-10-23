@@ -1,8 +1,10 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
+
+import IntroModal from "@/components/Intro";
 
 import { MicrophoneIcon } from "@heroicons/react/24/outline";
 
@@ -12,6 +14,7 @@ export default function Home() {
   const languageSelect = useRef(null);
   const recognition = useRef(null);
   const imagesContainer = useRef(null);
+  const [openIntroModal, setOpenIntroModal] = useState(false);
 
   const handleButtonClick = () => {
     if (!recognition?.current) {
@@ -20,6 +23,10 @@ export default function Home() {
       stopRecognition();
     }
   };
+
+  useEffect(() => {
+    setOpenIntroModal(true);
+  }, []);
 
   const handleSelectChange = () => {
     if (recognition?.current) {
@@ -90,8 +97,7 @@ export default function Home() {
     innerDiv.appendChild(childDiv);
 
     const pTag = document.createElement("p");
-    pTag.className =
-      "text-sm lg:text-base xl:text-lg 2xl:text-4xl text-center p-4 flex-1";
+    pTag.className = "text-xl lg:text-base 2xl:text-2xl text-center p-4 flex-1";
     pTag.innerText = text;
     innerDiv.appendChild(pTag);
 
@@ -243,7 +249,8 @@ export default function Home() {
           </div>
         </div>
       </header>
-      <div className="flex-1 overflow-y-scroll">
+      <div className="flex-1 overflow-y-scroll p-4">
+        <IntroModal open={openIntroModal} setOpen={setOpenIntroModal} />
         <div className="w-full col-span-3 px-5 py-8">
           <div
             ref={imagesContainer}

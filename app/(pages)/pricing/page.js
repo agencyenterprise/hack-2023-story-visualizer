@@ -7,11 +7,11 @@ export default function Pricing() {
   return (
     <PricingPage
       freeTierFeatures={[
-        "Create rich stories",
-        "Show your story to the world",
+        "Visualize your words",
         "Unlimited access to the app",
         "Quick and easy to use",
         "No ads",
+        "Free!",
       ]}
     />
   );
