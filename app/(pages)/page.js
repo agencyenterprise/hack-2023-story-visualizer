@@ -251,7 +251,7 @@ export default function Home() {
       </header>
       <div className="flex-1 overflow-y-scroll p-4">
         <IntroModal open={openIntroModal} setOpen={setOpenIntroModal} />
-        <div className="w-full col-span-3 px-5 py-8">
+        <div className="w-full col-span-3 px-5 py-8 max-w-[500px] m-auto">
           <div
             ref={imagesContainer}
             id="images"
