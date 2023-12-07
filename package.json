@@ -17,7 +17,7 @@
     "openai": "^4.11.1",
     "react": "^18",
     "react-dom": "^18",
-    "sds-projects": "^0.2.24"
+    "sds-projects": "0.2.25"
   },
   "devDependencies": {
     "autoprefixer": "^10",

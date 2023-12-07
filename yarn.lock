@@ -1370,6 +1370,11 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
+fflate@^0.4.1:
+  version "0.4.8"
+  resolved "https://registry.yarnpkg.com/fflate/-/fflate-0.4.8.tgz#f90b82aefbd8ac174213abb338bd7ef848f0f5ae"
+  integrity sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA==
+
 file-entry-cache@^6.0.1:
   version "6.0.1"
   resolved "https://registry.npmjs.org/file-entry-cache/-/file-entry-cache-6.0.1.tgz"
@@ -2442,6 +2447,13 @@ postcss@8.4.31, postcss@^8, postcss@^8.4.23:
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
+posthog-js@^1.93.6:
+  version "1.93.6"
+  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.93.6.tgz#e9524e55305b5df40c1fedb971d33f420ac80e33"
+  integrity sha512-Jou2awqQH5PDtDe9hZxpe9PO4D0uUOU7eA1lGni4pBxJckeA94P7WF3ieQj355xY96ZcXVQmGJykypO/FyBvpQ==
+  dependencies:
+    fflate "^0.4.1"
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.2.1.tgz"
@@ -2662,15 +2674,16 @@ scheduler@^0.23.0:
   dependencies:
     loose-envify "^1.1.0"
 
-sds-projects@^0.2.24:
-  version "0.2.24"
-  resolved "https://registry.yarnpkg.com/sds-projects/-/sds-projects-0.2.24.tgz#f6e0fc9d18e781741e7eda32d5a8204338ac31b4"
-  integrity sha512-3F2etzj8MSWwOpObw+Qj/o8cjtdLjgJbJNrfh/ZFB3KeaReK+3OxJndJdoCx4Lj9tjYynBhgKYtAOqWR4QSmaw==
+sds-projects@0.2.25:
+  version "0.2.25"
+  resolved "https://registry.yarnpkg.com/sds-projects/-/sds-projects-0.2.25.tgz#36580b3fb4fe3834d80bf097c543a6e90a57fbd5"
+  integrity sha512-N4H62+uJYwrvPKNMPDbBEWxT9Iabyaaocop1AjFGuxUNla5eI84sP8hlE/fW9BOgjxRm1lIYWDAcpH2HCvEkTg==
   dependencies:
     "@headlessui/react" "^1.7.15"
     "@heroicons/react" "^2.0.18"
     "@typeform/embed" "^2.16.0"
     classnames "^2.3.2"
+    posthog-js "^1.93.6"
     react "^18.2.0"
     react-dom "^18.2.0"
     react-step-progress-bar "^1.0.3"
