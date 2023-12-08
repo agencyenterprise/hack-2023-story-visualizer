@@ -2674,10 +2674,10 @@ scheduler@^0.23.0:
   dependencies:
     loose-envify "^1.1.0"
 
-sds-projects@0.2.27:
-  version "0.2.27"
-  resolved "https://registry.yarnpkg.com/sds-projects/-/sds-projects-0.2.27.tgz#5eeb435dbe981438e48f14c161f0a184cf904da3"
-  integrity sha512-0uQDx/YuahMPQ1NAUzvk1jfxeOkWFBY82glwVl2mep3ZtZghpOSug6QTsd7qlzJvNChrMTmr6/gLqz8fMMFzag==
+sds-projects@0.2.28:
+  version "0.2.28"
+  resolved "https://registry.yarnpkg.com/sds-projects/-/sds-projects-0.2.28.tgz#9351b697481b39b4dec1df19bdc5bced8a1f16fe"
+  integrity sha512-erY9lIAxvW1/8h4oVTJyiw6UEg+upMfkPRyGcLDKvAfxHI2f+CBOHp9GDeniusGvOMfMcmw22ZLRB7MXdcY/SA==
   dependencies:
     "@headlessui/react" "^1.7.15"
     "@heroicons/react" "^2.0.18"
