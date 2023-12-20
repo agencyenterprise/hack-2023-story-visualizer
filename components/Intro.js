@@ -56,7 +56,7 @@ const IntroModal = ({ open, setOpen }) => {
                           className="underline outline-none"
                           onClick={() =>
                             trackClickSdsBadge(
-                              "https://ae.studio/same-day-skunkworks",
+                              "https://ae.studio/same-day-skunkworks?utm_source=sds&utm_medium=referral&utm_campaign=storyvisualizer&utm_content=about&utm_term=3ff5251a-e107-4d47-bfb8-b2962debd252",
                               "Initial modal - AE Studio"
                             )
                           }
